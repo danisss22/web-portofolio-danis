@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Form Pendaftaran</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:#f2f4f7;
+}
+
+/* ================= HEADER ================= */
+.header{
+    background:#4aa3c7;
+    color:white;
+    padding:15px 25px;
+}
+
+/* container kiri */
+.header-left{
+    width:200px;
+}
+
+/* logo kiri */
+.header-left img{
+    width:70px;
+    height:auto;
+    display:block;
+}
+
+/* teks di bawah logo */
+.header-left h1{
+    font-size:20px;
+    margin:5px 0 0;
+    line-height:1.2;
+}
+
+/* ================= FORM AREA ================= */
+
+.wrapper{
+    width:600px;
+    margin:40px auto; /* tengah horizontal */
+}
+
+.container{
+    background:white;
+    padding:25px 35px;
+    border-radius:6px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    border-top:4px solid #4aa3c7;
+}
+
+h2{
+    text-align:center;
+    margin-top:0;
+    font-weight:600;
+    color:#333;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-size:14px;
+    color:#333;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:9px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:4px;
+    font-size:14px;
+    box-sizing:border-box;
+}
+
+textarea{
+    height:80px;
+}
+
+input:focus,select:focus,textarea:focus{
+    border-color:#4aa3c7;
+    outline:none;
+}
+
+.group{
+    margin-top:5px;
+}
+
+.group input{
+    width:auto;
+    margin-right:5px;
+}
+
+/* BUTTON */
+button{
+    margin-top:20px;
+    width:100%;
+    padding:11px;
+    background:#4aa3c7;
+    border:none;
+    color:white;
+    border-radius:4px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#3a8dad;
+}
+
+.error{
+    color:red;
+    font-size:12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-left">
+        <img src="logo.png" alt="logo">
+        <h1>STIKOM Yos Sudarso</h1>
+    </div>
+</div>
+
+<!-- FORM -->
+<div class="wrapper">
+<div class="container">
+
+<h2>Form Pendaftaran</h2>
+
+<form id="formKu">
+
+<label>Nama Lengkap</label>
+<input type="text" id="nama">
+<div class="error" id="errNama"></div>
+
+<label>Tanggal Lahir</label>
+<input type="date" id="tgl">
+<div class="error" id="errTgl"></div>
+
+<label>Jenis Kelamin</label>
+<div class="group">
+<input type="radio" name="jk" value="L"> Laki-laki
+<input type="radio" name="jk" value="P"> Perempuan
+</div>
+<div class="error" id="errJk"></div>
+
+<label>Hobi</label>
+<div class="group">
+<input type="checkbox" name="hobi"> Membaca
+<input type="checkbox" name="hobi"> Olahraga
+<input type="checkbox" name="hobi"> Musik
+<input type="checkbox" name="hobi"> Gaming
+</div>
+<div class="error" id="errHobi"></div>
+
+<label>Kota Asal</label>
+<select id="kota">
+<option value="">--Pilih Kota--</option>
+<option>Jakarta</option>
+<option>Bandung</option>
+<option>Surabaya</option>
+<option>Makassar</option>
+<option>Yogyakarta</option>
+<option>Semarang</option>
+<option>Purwokerto</option>
+</select>
+<div class="error" id="errKota"></div>
+
+<label>Alamat</label>
+<textarea id="alamat"></textarea>
+<div class="error" id="errAlamat"></div>
+
+<label>Pendidikan Terakhir</label>
+<select id="pendidikan">
+<option value="">--Pilih--</option>
+<option>SD</option>
+<option>SMP</option>
+<option>SMA/SMK</option>
+<option>S1</option>
+</select>
+<div class="error" id="errPend"></div>
+
+<label>Agama</label>
+<select id="agama">
+<option value="">--Pilih Agama--</option>
+<option>Islam</option>
+<option>Kristen</option>
+<option>Hindu</option>
+</select>
+<div class="error" id="errAgama"></div>
+
+<button type="submit">Daftar</button>
+
+</form>
+</div>
+</div>
+
+<script>
+document.getElementById("formKu").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let valid = true;
+
+    function setError(id,msg){
+        document.getElementById(id).innerText = msg;
+        if(msg!=="") valid=false;
+    }
+
+    setError("errNama","");
+    setError("errTgl","");
+    setError("errJk","");
+    setError("errHobi","");
+    setError("errKota","");
+    setError("errAlamat","");
+    setError("errPend","");
+    setError("errAgama","");
+
+    let nama = document.getElementById("nama").value;
+    let tgl = document.getElementById("tgl").value;
+    let jk = document.querySelector('input[name="jk"]:checked');
+    let hobi = document.querySelectorAll('input[name="hobi"]:checked');
+    let kota = document.getElementById("kota").value;
+    let alamat = document.getElementById("alamat").value;
+    let pendidikan = document.getElementById("pendidikan").value;
+    let agama = document.getElementById("agama").value;
+
+    if(nama==="") setError("errNama","Nama wajib diisi");
+    if(tgl==="") setError("errTgl","Tanggal wajib diisi");
+    if(!jk) setError("errJk","Pilih jenis kelamin");
+    if(hobi.length===0) setError("errHobi","Pilih minimal 1 hobi");
+    if(kota==="") setError("errKota","Pilih kota");
+    if(alamat==="") setError("errAlamat","Alamat wajib diisi");
+    if(pendidikan==="") setError("errPend","Pilih pendidikan");
+    if(agama==="") setError("errAgama","Pilih agama");
+
+    if(valid){
+        alert("Form berhasil dikirim ✅");
+    }
+});
+</script>
+
+</body>
+</html>
